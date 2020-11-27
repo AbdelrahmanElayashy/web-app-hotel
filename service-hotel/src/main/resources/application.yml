@@ -1,0 +1,43 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  rabbitmq:
+    default-queue:
+      durable: false
+      auto-delete: true
+      dead-letter-enabled: true
+    exchanges:
+      exchange-one:
+        name: exchange_one
+    queues:
+      queue-one:
+        name: queue_one
+    bindings:
+      binding-one:
+        exchange: exchange_one
+        queue: queue_one
+        routing-key: key_one
+---
+spring:
+  profiles: dev
+server:
+  port: 8080
+---
+spring:
+  profiles : test
+server:
+  port: 8090
+---
+spring:
+  profiles: dev1
+managment:
+  security:
+    enabled:false
+server:
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: password
+    key-store-type: JKS
+    key-alias: linkdin
+    key-password: password
